@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blog.Models.PostViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers
 {
@@ -10,6 +11,12 @@ namespace Blog.Controllers
         }
 
         public IActionResult Create()
+        {
+            return View(new CreateViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Add(CreateViewModel createViewModel)
         {
             return View();
         }
