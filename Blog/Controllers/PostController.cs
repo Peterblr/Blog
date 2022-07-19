@@ -1,10 +1,18 @@
-﻿using Blog.Models.PostViewModels;
+﻿using Blog.BusinessManager.Interfaces;
+using Blog.Models.PostViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers
 {
     public class PostController : Controller
     {
+        private readonly IPostBusinessManager _postBusinessManager;
+
+        public PostController(IPostBusinessManager postBusinessManager)
+        {
+            _postBusinessManager = postBusinessManager;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -16,9 +24,11 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(CreateViewModel createViewModel)
+        public async Task<IActionResult> Add(CreateViewModel createViewModel)
         {
-            return View();
+            await _postBusinessManager.CreatePost(createViewModel, User);
+
+            return RedirectToAction("Index", "Admin", new { area = "" });
         }
     }
 }

@@ -1,5 +1,9 @@
+using Blog.BusinessManager;
+using Blog.BusinessManager.Interfaces;
 using Blog.Data;
 using Blog.Data.Models;
+using Blog.Service;
+using Blog.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +18,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IPostBusinessManager, PostBusinessManager>();
+builder.Services.AddScoped<IPostService, PostService>();
 
 var app = builder.Build();
 
