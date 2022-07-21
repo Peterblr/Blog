@@ -6,6 +6,7 @@ using Blog.Service;
 using Blog.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPostBusinessManager, PostBusinessManager>();
 builder.Services.AddScoped<IPostService, PostService>();
+
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
 
 var app = builder.Build();
 

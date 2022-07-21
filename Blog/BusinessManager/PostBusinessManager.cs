@@ -11,12 +11,15 @@ namespace Blog.BusinessManager
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IPostService _postService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public PostBusinessManager(UserManager<ApplicationUser> userManager,
-                                    IPostService postService)
+                                    IPostService postService,
+                                    IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _postService = postService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<Post> CreatePost(CreateViewModel createViewModel, ClaimsPrincipal claimsPrincipal)
@@ -27,7 +30,27 @@ namespace Blog.BusinessManager
             post.CreatedOn = DateTime.Now;
             post.UpdatedOn = DateTime.Now;
 
-            return await _postService.Add(post);
+            post = await _postService.Add(post);
+
+            string webRootPath = _webHostEnvironment.WebRootPath;
+            string pathToImage = $@"{webRootPath}\UserFiles\Posts\{post.Id}\HeaderImage.jpg";
+            EnsureFolder(pathToImage);
+
+            using (var fileStream = new FileStream(pathToImage, FileMode.Create))
+            {
+                await createViewModel.HeaderImage.CopyToAsync(fileStream);
+            }
+
+            return post;
+        }
+
+        private void EnsureFolder(string path)
+        {
+            string directoryName = Path.GetDirectoryName(path);
+            if (directoryName.Length > 0)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
         }
     }
 }
