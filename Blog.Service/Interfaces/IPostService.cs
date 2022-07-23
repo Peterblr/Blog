@@ -9,6 +9,10 @@ namespace Blog.Service.Interfaces
 {
     public interface IPostService
     {
-        Task<Post> Add(Post post);
+        Post GetPost(int postId);
+
+        IEnumerable<Post> GetAllPosts(ApplicationUser applicationUser);
+
+        Task<Post> AddPostAsync(Post post);
     }
 }

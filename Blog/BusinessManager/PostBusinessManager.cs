@@ -30,7 +30,7 @@ namespace Blog.BusinessManager
             post.CreatedOn = DateTime.Now;
             post.UpdatedOn = DateTime.Now;
 
-            post = await _postService.Add(post);
+            post = await _postService.AddPostAsync(post);
 
             string webRootPath = _webHostEnvironment.WebRootPath;
             string pathToImage = $@"{webRootPath}\UserFiles\Posts\{post.Id}\HeaderImage.jpg";

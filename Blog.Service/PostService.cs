@@ -1,6 +1,7 @@
 ﻿using Blog.Data;
 using Blog.Data.Models;
 using Blog.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,22 @@ namespace Blog.Service
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<Post> Add(Post post)
+        public Post GetPost(int postId)
+        {
+            return _applicationDbContext.Posts.FirstOrDefault(post => post.Id == postId);
+        }
+
+        public IEnumerable<Post> GetAllPosts(ApplicationUser applicationUser)
+        {
+            return _applicationDbContext.Posts
+                .OrderByDescending(post => post.UpdatedOn)
+                .Include(post => post.Creator)
+                .Include(post => post.Approver)
+                .Include(post => post.Comments)
+                .Where(post => post.Creator == applicationUser);
+        }
+
+        public async Task<Post> AddPostAsync(Post post)
         {
             _applicationDbContext.Add(post);
             await _applicationDbContext.SaveChangesAsync();
