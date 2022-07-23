@@ -1,9 +1,11 @@
+using Blog.Authorization;
 using Blog.BusinessManager;
 using Blog.BusinessManager.Interfaces;
 using Blog.Data;
 using Blog.Data.Models;
 using Blog.Service;
 using Blog.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -25,6 +27,8 @@ builder.Services.AddScoped<IAdminBusinessManager, AdminBusinessManager>();
 builder.Services.AddScoped<IPostService, PostService>();
 
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+
+builder.Services.AddTransient<IAuthorizationHandler, PostAuthorizationHandler>();
 
 
 var app = builder.Build();
