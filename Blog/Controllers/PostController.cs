@@ -24,11 +24,35 @@ namespace Blog.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(CreateViewModel createViewModel)
+        public async Task<IActionResult> Create(CreateViewModel createViewModel)
         {
             await _postBusinessManager.CreatePost(createViewModel, User);
 
             return RedirectToAction("Index", "Admin", new { area = "" });
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var actionResult = await _postBusinessManager.GetEditViewModel(id, User);
+
+            if (actionResult.Result is null)
+                return View(actionResult.Value);
+
+            return actionResult.Result;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel editViewModel)
+        {
+            var actionResult = await _postBusinessManager.UpdatePost(editViewModel, User);
+
+            if (actionResult.Result is null)
+            {
+                return RedirectToAction("Index", "Admin", new { area = "" });
+            }
+
+            return actionResult.Result;
+        }
+
     }
 }

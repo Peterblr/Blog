@@ -41,5 +41,13 @@ namespace Blog.Service
 
             return post;
         }
+
+        public async Task<Post> UpdatePostAsync(Post post)
+        {
+            _applicationDbContext.Update(post);
+            await _applicationDbContext.SaveChangesAsync();
+
+            return post;
+        }
     }
 }

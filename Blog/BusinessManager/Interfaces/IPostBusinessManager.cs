@@ -1,5 +1,6 @@
 ﻿using Blog.Data.Models;
 using Blog.Models.PostViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace Blog.BusinessManager.Interfaces
@@ -7,5 +8,8 @@ namespace Blog.BusinessManager.Interfaces
     public interface IPostBusinessManager
     {
         Task<Post> CreatePost(CreateViewModel createViewModel, ClaimsPrincipal claimsPrincipal);
+        Task<ActionResult<EditViewModel>> UpdatePost(EditViewModel editViewModel, ClaimsPrincipal claimsPrincipal);
+
+        Task<ActionResult<EditViewModel>> GetEditViewModel(int? id, ClaimsPrincipal claimsPrincipal);
     }
 }

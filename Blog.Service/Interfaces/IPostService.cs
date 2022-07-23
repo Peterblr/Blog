@@ -14,5 +14,7 @@ namespace Blog.Service.Interfaces
         IEnumerable<Post> GetAllPosts(ApplicationUser applicationUser);
 
         Task<Post> AddPostAsync(Post post);
+
+        Task<Post> UpdatePostAsync(Post post);
     }
 }
