@@ -13,6 +13,8 @@ namespace Blog.Service.Interfaces
 
         IEnumerable<Post> GetAllPosts(ApplicationUser applicationUser);
 
+        IEnumerable<Post> GetAllPosts(string searchString);
+
         Task<Post> AddPostAsync(Post post);
 
         Task<Post> UpdatePostAsync(Post post);

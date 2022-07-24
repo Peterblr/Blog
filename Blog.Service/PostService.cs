@@ -24,6 +24,15 @@ namespace Blog.Service
             return _applicationDbContext.Posts.FirstOrDefault(post => post.Id == postId);
         }
 
+        public IEnumerable<Post> GetAllPosts(string searchString)
+        {
+            return _applicationDbContext.Posts
+                .OrderByDescending(post => post.UpdatedOn)
+                .Include(post => post.Creator)
+                .Include(post => post.Comments)
+                .Where(post => post.Title.Contains(searchString) || post.Content.Contains(searchString));
+        }
+
         public IEnumerable<Post> GetAllPosts(ApplicationUser applicationUser)
         {
             return _applicationDbContext.Posts

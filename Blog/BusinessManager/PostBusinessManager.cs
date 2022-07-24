@@ -1,11 +1,13 @@
 ﻿using Blog.Authorization;
 using Blog.BusinessManager.Interfaces;
 using Blog.Data.Models;
+using Blog.Models.HomeViewModels;
 using Blog.Models.PostViewModels;
 using Blog.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PagedList.Core;
 using System.Security.Claims;
 
 namespace Blog.BusinessManager
@@ -26,6 +28,25 @@ namespace Blog.BusinessManager
             _postService = postService;
             _webHostEnvironment = webHostEnvironment;
             _authorizationService = authorizationService;
+        }
+
+        public IndexHomeViewModel GetIndexHomeViewModel(string searchString, int? page)
+        {
+            int pageSize = 3;
+
+            int pageNumber = page ?? 1;
+
+            var posts = _postService.GetAllPosts(searchString ?? string.Empty)
+                .Where(blog => blog.Published);
+            //&& blog.Approved);
+
+            return new IndexHomeViewModel
+            {
+                Posts = new StaticPagedList<Post>(posts.Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize), pageNumber, pageSize, posts.Count()),
+                SearchString = searchString,
+                PageNumber = pageNumber
+            };
         }
 
         public async Task<Post> CreatePost(CreateViewModel createViewModel, ClaimsPrincipal claimsPrincipal)
