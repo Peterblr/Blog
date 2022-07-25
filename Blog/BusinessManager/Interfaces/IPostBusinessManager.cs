@@ -14,5 +14,7 @@ namespace Blog.BusinessManager.Interfaces
         Task<ActionResult<EditViewModel>> GetEditViewModel(int? id, ClaimsPrincipal claimsPrincipal);
 
         IndexHomeViewModel GetIndexHomeViewModel(string searchString, int? page);
+
+        Task<ActionResult<PostViewModel>> GetPostViewModel(int? id, ClaimsPrincipal claimsPrincipal);
     }
 }

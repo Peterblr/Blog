@@ -49,6 +49,32 @@ namespace Blog.BusinessManager
             };
         }
 
+        public async Task<ActionResult<PostViewModel>> GetPostViewModel(int? id, ClaimsPrincipal claimsPrincipal)
+        {
+            if (id is null)
+                return new BadRequestResult();
+
+            var postId = id.Value;
+
+            var post = _postService.GetPost(postId);
+
+            if (post is null)
+                return new NotFoundResult();
+
+            if (!post.Published)
+            {
+                var authorizationResult = await _authorizationService.AuthorizeAsync(claimsPrincipal, post, Operations.Read);
+
+                if (!authorizationResult.Succeeded) return DetermineActionResult(claimsPrincipal);
+
+            }
+
+            return new PostViewModel
+            {
+                Post = post,
+            };
+        }
+
         public async Task<Post> CreatePost(CreateViewModel createViewModel, ClaimsPrincipal claimsPrincipal)
         {
             Post post = createViewModel.Post;
