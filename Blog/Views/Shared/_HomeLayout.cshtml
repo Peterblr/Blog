@@ -24,19 +24,18 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>@ViewData["HeaderTitle"]</h1>
-                        @if (ViewData["SubHeader"] is null) {
-                            <span class="meta">
+                        @if (ViewData["SubHeader"] is null)
+                        {
+                            <span class="subheading">
                                 Posted by
                                 <a asp-controller="Home" asp-action="Author" asp-route-authorId="@ViewData["AuthorId"]">@ViewData["AuthorName"]</a>
                                 on @ViewData["PostDate"]
                             </span>
-                        } else {
+                        }
+                        else
+                        {
                             <span class="subheading">@ViewData["SubHeader"]</span>
                         }
-                       @* <span class="subheading">
-                            Posted by <a href="#!">@ViewData["AuthorName"]</a>
-                            on @ViewData["PostDate"]
-                        </span>*@
                     </div>
                 </div>
             </div>

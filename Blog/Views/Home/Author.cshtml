@@ -26,7 +26,8 @@
                     </div>
                 </form>
                 <div class="row align-content-center">
-                    @foreach (var post in Model.Posts) {
+                    @foreach (var post in Model.Posts)
+                    {
                         <div class="col-lg-4 col-md-3 mb-4">
                             <div class="card border-0 shadow">
                                 <img src="~/UserFiles/Posts/@post.Id/HeaderImage.jpg" class="card-img-top">
@@ -39,7 +40,7 @@
                         </div>
                     }
                 </div>
-                <div list="@Model.Posts" count="20">
+                <div list="@Model.Posts" count="3">
                     <pager class="pager-container" list="@Model.Posts" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" asp-action="Index" asp-controller="Home" asp-route-query="@Model.SearchString" />
                 </div>
             </div>

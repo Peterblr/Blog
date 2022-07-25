@@ -34,7 +34,7 @@ namespace Blog.BusinessManager
             int pageNumber = page ?? 1;
 
             var posts = _postService.GetAllPosts(searchString ?? string.Empty)
-                .Where(post => post.Published && post.Creator == applicationUser && post.Approved);
+                .Where(post => post.Published && post.Creator == applicationUser /*&& post.Approved*/);
 
             return new AuthorViewModel
             {
