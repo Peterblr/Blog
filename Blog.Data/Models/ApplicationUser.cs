@@ -14,5 +14,8 @@ namespace Blog.Data.Models
 
         [PersonalData]
         public string LastName { get; set; }
+
+        public string SubHeader { get; set; }
+        public string AboutContent { get; set; }
     }
 }

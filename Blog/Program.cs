@@ -25,6 +25,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPostBusinessManager, PostBusinessManager>();
 builder.Services.AddScoped<IAdminBusinessManager, AdminBusinessManager>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
 
