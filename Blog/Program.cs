@@ -24,6 +24,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IPostBusinessManager, PostBusinessManager>();
 builder.Services.AddScoped<IAdminBusinessManager, AdminBusinessManager>();
+builder.Services.AddScoped<IHomeBusinessManager, HomeBusinessManager>();
 builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUserService, UserService>();
 

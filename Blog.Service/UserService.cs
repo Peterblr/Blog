@@ -18,6 +18,12 @@ namespace Blog.Service
             _applicationDbContext = applicationDbContext;
         }
 
+        public ApplicationUser GetUser(string id)
+        {
+            return _applicationDbContext.Users
+                .FirstOrDefault(user => user.Id == id);
+        }
+
         public async Task<ApplicationUser> UpdateUser(ApplicationUser applicationUser)
         {
             _applicationDbContext.Update(applicationUser);

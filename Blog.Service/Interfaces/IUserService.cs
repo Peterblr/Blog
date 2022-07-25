@@ -9,6 +9,8 @@ namespace Blog.Service.Interfaces
 {
     public interface IUserService
     {
+        ApplicationUser GetUser(string id);
+
         Task<ApplicationUser> UpdateUser(ApplicationUser applicationUser);
     }
 }
