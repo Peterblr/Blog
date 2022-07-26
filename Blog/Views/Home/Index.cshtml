@@ -19,7 +19,7 @@
                     <img src="~/UserFiles/Posts/@post.Id/HeaderImage.jpg" class="card-img-top">
                     <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
                         <h2 class="post-title">@post.Title</h2>
-                        <h3 class="post-subtitle">@Html.Raw(@post.Content[0..200].ToString())...</h3>                        
+                        <h3 class="post-subtitle">@Html.Raw(@post.Content[0..200].ToString())...</h3>
                     </a>
                     <p class="post-meta">
                         Posted by
@@ -32,6 +32,8 @@
             <hr class="my-4" />
         }
     </div>
-    <pager class="pager-container" list="@Model.Posts" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" asp-action="Index" asp-controller="Home" asp-route-query="@Model.SearchString" />
+    <div list="@Model.Posts" count="3">
+        <pager class="pager-container" list="@Model.Posts" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" asp-action="Index" asp-controller="Home" asp-route-query="@Model.SearchString" />
+    </div>
 </div>
 
