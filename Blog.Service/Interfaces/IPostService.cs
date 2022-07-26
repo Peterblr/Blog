@@ -18,5 +18,9 @@ namespace Blog.Service.Interfaces
         Task<Post> AddPostAsync(Post post);
 
         Task<Post> UpdatePostAsync(Post post);
+
+        Comment GetComment(int commentId);
+
+        Task<Comment> AddCommentAsync(Comment comment);
     }
 }

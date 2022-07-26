@@ -64,5 +64,22 @@ namespace Blog.Service
 
             return post;
         }
+
+        public Comment GetComment(int commentId)
+        {
+            return _applicationDbContext.Comments
+                .Include(comment => comment.Author)
+                .Include(comment => comment.Post)
+                .Include(comment => comment.CreatedOn)
+                .FirstOrDefault(comment => comment.Id == commentId);
+        }
+
+        public async Task<Comment> AddCommentAsync(Comment comment)
+        {
+            _applicationDbContext.Add(comment);
+            await _applicationDbContext.SaveChangesAsync();
+
+            return comment;
+        }
     }
 }
